@@ -1,4 +1,4 @@
-# 🧪 ML Classification Virtual Lab
+# 🧪 ML Classification Virtual Lab (2026 Edition)
 
 A full-featured Streamlit virtual laboratory for comparing 5 classification models with carbon footprint tracking.
 

@@ -1,5 +1,5 @@
 ##############################################################################
-# DATA VISUALIZATION VIRTUAL LAB — Applied Data Science 2025
+# DATA VISUALIZATION VIRTUAL LAB — Applied Data Science 2026
 # Complete Streamlit Application (Single File)
 ##############################################################################
 
@@ -50,7 +50,7 @@ except ImportError:
 
 # ─── PAGE CONFIG ────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="Data Visualization Virtual Lab | ADS 2025",
+    page_title="Data Visualization Virtual Lab | ADS 2026",
     layout="wide",
     page_icon="📊",
     initial_sidebar_state="expanded",
@@ -169,7 +169,7 @@ def render_header(title: str, subtitle: str = ""):
 
 def render_footer():
     """Render the standard footer."""
-    st.markdown('<div class="footer">Data Visualization Virtual Lab | Applied Data Science | 2025</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">Data Visualization Virtual Lab | Applied Data Science | 2026</div>', unsafe_allow_html=True)
 
 
 def render_step_indicator(steps: list, current: int):
@@ -249,6 +249,15 @@ if page == PAGES[0]:
         zoom, pan, and export any chart.
 
         ### Why Data Visualization Matters
+        Data visualization is the graphical representation of information and data. By using visual elements like charts, graphs, and maps, data visualization tools provide an accessible way to see and understand trends, outliers, and patterns in data.
+
+        **Key Principles of Data Visualization:**
+        - **Clarity:** Ensure the primary message is communicated clearly and efficiently.
+        - **Accuracy:** Prevent misrepresenting the underlying data context or scale.
+        - **Efficiency:** Allow viewers to grasp key insights quickly.
+        - **Aesthetics:** Use thoughtful design to engage the viewer and highlight importance.
+
+        **Core Use Cases:**
         - 🔍 **Identify Trends** — Spot patterns in complex, high-dimensional datasets
         - 📣 **Communicate Insights** — Convey findings to stakeholders with clarity
         - 🐛 **Diagnose Model Issues** — Visualize residuals, loss curves, and decision boundaries
@@ -268,7 +277,7 @@ if page == PAGES[0]:
     with col2:
         st.markdown("<br>", unsafe_allow_html=True)
         st.image("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=600",
-                 caption="Data-driven decision making", use_container_width=True)
+                 caption="Data-driven decision making", width="stretch")
         st.markdown("""
         #### 🧪 Lab Features
         - 6 mandatory chart types
@@ -327,20 +336,20 @@ elif page == PAGES[1]:
     c4.metric("Classes", df[target_col].nunique())
 
     with st.expander("🔎 Data Preview & Info", expanded=False):
-        st.dataframe(df.head(15), use_container_width=True)
+        st.dataframe(df.head(15), width="stretch")
 
         col_a, col_b = st.columns(2)
         with col_a:
             st.markdown("**Data Types**")
             dtype_df = pd.DataFrame({"Column": df.columns, "Type": df.dtypes.astype(str).values})
-            st.dataframe(dtype_df, use_container_width=True, hide_index=True)
+            st.dataframe(dtype_df, width="stretch", hide_index=True)
         with col_b:
             st.markdown("**Missing Values**")
             missing = df.isnull().sum().reset_index()
             missing.columns = ["Column", "Missing Count"]
             missing["% Missing"] = (missing["Missing Count"] / len(df) * 100).round(2)
             st.dataframe(missing.style.background_gradient(subset=["Missing Count"], cmap="YlOrRd"),
-                         use_container_width=True, hide_index=True)
+                         width="stretch", hide_index=True)
 
     # Class distribution
     class_dist = df[target_col].value_counts().reset_index()
@@ -349,7 +358,7 @@ elif page == PAGES[1]:
                        title="Class Distribution", template="plotly_white",
                        color_discrete_sequence=px.colors.qualitative.Set2)
     fig_class.update_layout(showlegend=False, height=350)
-    st.plotly_chart(fig_class, use_container_width=True)
+    st.plotly_chart(fig_class, width="stretch")
 
     # ── EDA Tabs ────────────────────────────────────────────────────────────
     tab1, tab2, tab3, tab4, tab5 = st.tabs([
@@ -364,7 +373,7 @@ elif page == PAGES[1]:
     with tab1:
         st.markdown("### Descriptive Statistics")
         st.dataframe(df.describe().T.style.format("{:.3f}").background_gradient(cmap="Blues"),
-                     use_container_width=True)
+                     width="stretch")
 
         # Sparkline histograms
         st.markdown("### Feature Sparklines")
@@ -380,7 +389,7 @@ elif page == PAGES[1]:
                         title=dict(text=col_name, font=dict(size=11)),
                         xaxis=dict(visible=False), yaxis=dict(visible=False)
                     )
-                    st.plotly_chart(fig_spark, use_container_width=True)
+                    st.plotly_chart(fig_spark, width="stretch")
 
         # Full distribution
         st.markdown("### Feature Distribution (Histogram + KDE Overlay)")
@@ -397,7 +406,7 @@ elif page == PAGES[1]:
                 title=f"Distribution of {feat} by Class",
                 xaxis_title=feat, yaxis_title="Count", height=380,
             )
-            st.plotly_chart(fig_dist, use_container_width=True)
+            st.plotly_chart(fig_dist, width="stretch")
 
     # ──────────────────── TAB 2: Correlation & Relationships ────────────────
     with tab2:
@@ -413,7 +422,7 @@ elif page == PAGES[1]:
                 template="plotly_white",
             )
             fig_heat.update_layout(height=550)
-            st.plotly_chart(fig_heat, use_container_width=True)
+            st.plotly_chart(fig_heat, width="stretch")
         else:
             st.warning("Need at least 2 numeric columns for a heatmap.")
 
@@ -437,7 +446,7 @@ elif page == PAGES[1]:
                 template="plotly_white", size_max=45,
             )
             fig_bubble.update_layout(height=500)
-            st.plotly_chart(fig_bubble, use_container_width=True)
+            st.plotly_chart(fig_bubble, width="stretch")
         except Exception as e:
             st.error(f"Could not render bubble chart: {e}")
 
@@ -455,7 +464,7 @@ elif page == PAGES[1]:
                 color_discrete_sequence=px.colors.qualitative.Vivid,
             )
             fig_box.update_layout(height=450)
-            st.plotly_chart(fig_box, use_container_width=True)
+            st.plotly_chart(fig_box, width="stretch")
         except Exception as e:
             st.error(f"Could not render box plot: {e}")
 
@@ -473,7 +482,7 @@ elif page == PAGES[1]:
                     color_discrete_sequence=px.colors.qualitative.Set2,
                 )
                 fig_sm.update_layout(height=700)
-                st.plotly_chart(fig_sm, use_container_width=True)
+                st.plotly_chart(fig_sm, width="stretch")
             except Exception as e:
                 st.error(f"Could not render scatter matrix: {e}")
 
@@ -489,7 +498,7 @@ elif page == PAGES[1]:
                                    title=f"Violin + Box Plot: {viol_feat} by {target_col}",
                                    template="plotly_white")
             fig_violin.update_layout(height=450)
-            st.plotly_chart(fig_violin, use_container_width=True)
+            st.plotly_chart(fig_violin, width="stretch")
         except Exception as e:
             st.error(f"Could not render violin plot: {e}")
 
@@ -511,7 +520,7 @@ elif page == PAGES[1]:
                 template="plotly_white",
             )
             fig_pc.update_layout(height=500)
-            st.plotly_chart(fig_pc, use_container_width=True)
+            st.plotly_chart(fig_pc, width="stretch")
 
         st.markdown("---")
 
@@ -527,7 +536,7 @@ elif page == PAGES[1]:
                                    template="plotly_white",
                                    color_discrete_sequence=px.colors.qualitative.Bold)
             fig_3d.update_layout(height=600)
-            st.plotly_chart(fig_3d, use_container_width=True)
+            st.plotly_chart(fig_3d, width="stretch")
         else:
             st.warning("Need at least 3 numeric columns for 3D scatter.")
 
@@ -571,7 +580,7 @@ elif page == PAGES[1]:
                         scene=dict(xaxis_title="PC1", yaxis_title="PC2", zaxis_title="Class"),
                         template="plotly_white", height=550,
                     )
-                    st.plotly_chart(fig_surface, use_container_width=True)
+                    st.plotly_chart(fig_surface, width="stretch")
                 except Exception as e:
                     st.error(f"Could not compute 3D decision surface: {e}")
 
@@ -609,7 +618,7 @@ elif page == PAGES[1]:
                 color_discrete_sequence=["#3498db"],
             )
             fig_var.update_layout(height=350)
-            st.plotly_chart(fig_var, use_container_width=True)
+            st.plotly_chart(fig_var, width="stretch")
 
         # PCA 2D
         pca2 = PCA(n_components=2).fit_transform(X_dr_scaled)
@@ -619,7 +628,7 @@ elif page == PAGES[1]:
                                template="plotly_white",
                                color_discrete_sequence=px.colors.qualitative.Set2)
         fig_pca2d.update_layout(height=420)
-        st.plotly_chart(fig_pca2d, use_container_width=True)
+        st.plotly_chart(fig_pca2d, width="stretch")
 
         # PCA 3D
         if X_dr_scaled.shape[1] >= 3:
@@ -630,7 +639,7 @@ elif page == PAGES[1]:
                                       template="plotly_white",
                                       color_discrete_sequence=px.colors.qualitative.Bold)
             fig_pca3d.update_layout(height=520)
-            st.plotly_chart(fig_pca3d, use_container_width=True)
+            st.plotly_chart(fig_pca3d, width="stretch")
 
         st.markdown("---")
 
@@ -646,7 +655,7 @@ elif page == PAGES[1]:
                                   template="plotly_white",
                                   color_discrete_sequence=px.colors.qualitative.Vivid)
             fig_tsne.update_layout(height=450)
-            st.plotly_chart(fig_tsne, use_container_width=True)
+            st.plotly_chart(fig_tsne, width="stretch")
 
         st.markdown("---")
 
@@ -663,7 +672,7 @@ elif page == PAGES[1]:
                                       template="plotly_white",
                                       color_discrete_sequence=px.colors.qualitative.Pastel)
                 fig_umap.update_layout(height=450)
-                st.plotly_chart(fig_umap, use_container_width=True)
+                st.plotly_chart(fig_umap, width="stretch")
         else:
             st.warning("⚠️ UMAP is not installed. Install via `pip install umap-learn` to enable.")
 
@@ -687,7 +696,7 @@ elif page == PAGES[1]:
                                 template="plotly_white",
                                 color="Importance", color_continuous_scale="Blues")
                 fig_fi.update_layout(height=max(350, len(numeric_cols) * 30))
-                st.plotly_chart(fig_fi, use_container_width=True)
+                st.plotly_chart(fig_fi, width="stretch")
             except Exception as e:
                 st.error(f"Could not compute Random Forest importances: {e}")
 
@@ -706,7 +715,7 @@ elif page == PAGES[1]:
                                 template="plotly_white",
                                 color="MI Score", color_continuous_scale="Greens")
                 fig_mi.update_layout(height=max(350, len(numeric_cols) * 30))
-                st.plotly_chart(fig_mi, use_container_width=True)
+                st.plotly_chart(fig_mi, width="stretch")
             except Exception as e:
                 st.error(f"Could not compute Mutual Information Scores: {e}")
 
@@ -791,7 +800,7 @@ elif page == PAGES[2]:
     # ── Step 3: Training ───────────────────────────────────────────────────
     st.markdown("### 🚀 Step 3 — Train All Selected Models")
 
-    if st.button("🚀 Train All Selected Models", type="primary", use_container_width=True):
+    if st.button("🚀 Train All Selected Models", type="primary", width="stretch"):
         # Prepare data — use only user-selected features and drop rows with missing values
         clean_df = df.dropna(subset=selected_features + [target_col])
         
@@ -990,7 +999,7 @@ elif page == PAGES[2]:
                 return ["background-color: #0d3320; color: #2ecc71; font-weight: bold"] * len(row)
             return [""] * len(row)
 
-        st.dataframe(summary_df.style.apply(highlight_best, axis=1), use_container_width=True, hide_index=True)
+        st.dataframe(summary_df.style.apply(highlight_best, axis=1), width="stretch", hide_index=True)
 
     # ── Step 4: Hyperparameter Tuning ──────────────────────────────────────
     if "trained_models" in st.session_state and st.session_state.trained_models:
@@ -1096,7 +1105,7 @@ elif page == PAGES[3]:
             xaxis_title="False Positive Rate", yaxis_title="True Positive Rate",
             height=450, legend=dict(font=dict(size=10))
         )
-        st.plotly_chart(fig_roc, use_container_width=True)
+        st.plotly_chart(fig_roc, width="stretch")
 
     with col_cm:
         # Confusion Matrix
@@ -1123,14 +1132,14 @@ elif page == PAGES[3]:
         if normalize_cm:
             fig_cm.update_traces(text=[[f"{v:.2f}" for v in row] for row in cm_display], texttemplate="%{text}")
         fig_cm.update_layout(height=450)
-        st.plotly_chart(fig_cm, use_container_width=True)
+        st.plotly_chart(fig_cm, width="stretch")
 
     # Classification Report
     st.markdown("#### Classification Report")
     cr = sel_res["classification_report"]
     cr_df = pd.DataFrame(cr).T
     st.dataframe(cr_df.style.format("{:.3f}", subset=cr_df.columns[:4] if len(cr_df.columns) >= 4 else cr_df.columns).background_gradient(cmap="Greens"),
-                 use_container_width=True)
+                 width="stretch")
 
     # [MANDATORY] BOX PLOT — CV Scores (all models)
     st.markdown("#### Cross-Validation Score Distribution")
@@ -1146,7 +1155,7 @@ elif page == PAGES[3]:
         title="Cross-Validation Fold Scores (All Models)",
         yaxis_title="Accuracy", template="plotly_white", height=420,
     )
-    st.plotly_chart(fig_cv_box, use_container_width=True)
+    st.plotly_chart(fig_cv_box, width="stretch")
 
     # Precision-Recall Curve
     st.markdown("#### Precision-Recall Curve")
@@ -1171,7 +1180,7 @@ elif page == PAGES[3]:
             title="Precision-Recall Curve", template="plotly_white",
             xaxis_title="Recall", yaxis_title="Precision", height=420,
         )
-        st.plotly_chart(fig_pr, use_container_width=True)
+        st.plotly_chart(fig_pr, width="stretch")
     else:
         st.info("No probability data available for this model.")
 
@@ -1195,7 +1204,7 @@ elif page == PAGES[3]:
             xaxis_title="Iteration", yaxis_title=metric_key,
             template="plotly_white", height=380,
         )
-        st.plotly_chart(fig_xgb_loss, use_container_width=True)
+        st.plotly_chart(fig_xgb_loss, width="stretch")
 
     # Learning Curve
     st.markdown("#### Learning Curve")
@@ -1244,7 +1253,7 @@ elif page == PAGES[3]:
                 xaxis_title="Training Set Size", yaxis_title="Accuracy",
                 template="plotly_white", height=420,
             )
-            st.plotly_chart(fig_lc, use_container_width=True)
+            st.plotly_chart(fig_lc, width="stretch")
         except Exception as e:
             st.warning(f"Could not compute learning curve: {e}")
 
@@ -1280,7 +1289,7 @@ elif page == PAGES[3]:
                     xaxis_title=vp_name, yaxis_title="Accuracy",
                     template="plotly_white", height=380,
                 )
-                st.plotly_chart(fig_vc, use_container_width=True)
+                st.plotly_chart(fig_vc, width="stretch")
             except Exception as e:
                 st.warning(f"Could not compute validation curve: {e}")
 
@@ -1356,7 +1365,7 @@ elif page == PAGES[3]:
         template="plotly_white", height=520,
         legend=dict(font=dict(size=11))
     )
-    st.plotly_chart(fig_radar, use_container_width=True)
+    st.plotly_chart(fig_radar, width="stretch")
 
     # [MANDATORY] PARALLEL COORDINATES — Models
     st.markdown("#### 🌈 Parallel Coordinates — Model Metrics")
@@ -1377,7 +1386,7 @@ elif page == PAGES[3]:
         title="Parallel Coordinates: Model Metric Profiles",
         template="plotly_white", height=450,
     )
-    st.plotly_chart(fig_pc_model, use_container_width=True)
+    st.plotly_chart(fig_pc_model, width="stretch")
 
     # Grouped Bar Chart
     st.markdown("#### 📊 Grouped Bar — Train / Test / CV Accuracy")
@@ -1391,7 +1400,7 @@ elif page == PAGES[3]:
                              y=comp_df["CV Mean"], marker_color="#e67e22"))
     fig_bar.update_layout(barmode="group", title="Model Accuracy Comparison",
                           template="plotly_white", height=400, yaxis_title="Accuracy")
-    st.plotly_chart(fig_bar, use_container_width=True)
+    st.plotly_chart(fig_bar, width="stretch")
 
     # [MANDATORY] BOX PLOT — CV Scores (Section 4 repeat for comparative)
     st.markdown("#### 📦 Cross-Validation Scores — All Models")
@@ -1406,7 +1415,7 @@ elif page == PAGES[3]:
         title="CV Fold Scores (Comparative)", yaxis_title="Accuracy",
         template="plotly_white", height=420,
     )
-    st.plotly_chart(fig_cv_box2, use_container_width=True)
+    st.plotly_chart(fig_cv_box2, width="stretch")
 
     # ── Section 5: Prediction Explorer ─────────────────────────────────────
     st.markdown("### 🔮 Section 5 — Prediction Explorer")
@@ -1426,7 +1435,7 @@ elif page == PAGES[3]:
                           template="plotly_white", labels={"x": "Feature", "y": "Value"},
                           color_discrete_sequence=["#3498db"])
         fig_feat.update_layout(height=350)
-        st.plotly_chart(fig_feat, use_container_width=True)
+        st.plotly_chart(fig_feat, width="stretch")
 
     with pc2:
         if sel_res["y_prob"] is not None:
@@ -1437,7 +1446,7 @@ elif page == PAGES[3]:
                               labels={"x": "Class", "y": "Probability"},
                               color_discrete_sequence=["#2ecc71"])
             fig_prob.update_layout(height=350)
-            st.plotly_chart(fig_prob, use_container_width=True)
+            st.plotly_chart(fig_prob, width="stretch")
         else:
             st.info("Probabilities not available for this model.")
 
@@ -1493,7 +1502,7 @@ elif page == PAGES[4]:
                          color_continuous_scale="RdYlGn_r",
                          title="Carbon Intensity by Region", template="plotly_white")
         fig_ref.update_layout(height=350)
-        st.plotly_chart(fig_ref, use_container_width=True)
+        st.plotly_chart(fig_ref, width="stretch")
 
     with tab_h:
         hw_type = st.selectbox("Hardware Type", ["CPU", "GPU - Consumer", "GPU - Data Center", "TPU v3", "TPU v4"], key="c_hw")
@@ -1520,7 +1529,7 @@ elif page == PAGES[4]:
     # ── Section 2: Output Metrics Dashboard ────────────────────────────────
     st.markdown("### 📋 Section 2 — Output Metrics Dashboard")
 
-    if st.button("🌱 Calculate Carbon Footprint", type="primary", use_container_width=True):
+    if st.button("🌱 Calculate Carbon Footprint", type="primary", width="stretch"):
         # Adjust for renewable
         effective_ci = carbon_intensity * (1 - renewable_pct / 100.0)
 
@@ -1558,7 +1567,7 @@ elif page == PAGES[4]:
             ),
         ))
         fig_gauge.update_layout(height=300, template="plotly_white")
-        st.plotly_chart(fig_gauge, use_container_width=True)
+        st.plotly_chart(fig_gauge, width="stretch")
 
     # ── Section 3: Auto Carbon Comparison of Trained Models ────────────────
     st.markdown("### 🔍 Section 3 — Auto Carbon Comparison of Trained Models")
@@ -1604,7 +1613,7 @@ elif page == PAGES[4]:
             color_continuous_scale="Viridis",
         )
         fig_carbon_bubble.update_layout(height=450)
-        st.plotly_chart(fig_carbon_bubble, use_container_width=True)
+        st.plotly_chart(fig_carbon_bubble, width="stretch")
 
         # [MANDATORY] HEATMAP — Model × Metric
         st.markdown("#### 🔥 Model × Metric Heatmap")
@@ -1635,7 +1644,7 @@ elif page == PAGES[4]:
                     showarrow=False, font=dict(size=10, color="white")
                 )
         fig_hm.update_layout(height=350)
-        st.plotly_chart(fig_hm, use_container_width=True)
+        st.plotly_chart(fig_hm, width="stretch")
 
         # Summary table
         st.markdown("#### 📋 Carbon Comparison Summary")
@@ -1649,7 +1658,7 @@ elif page == PAGES[4]:
         st.dataframe(carbon_df.style.apply(highlight_eco, axis=1).format({
             "CO₂e (kg)": "{:.8f}", "Eco-Efficiency": "{:.2f}",
             "Accuracy": "{:.4f}", "F1-Score": "{:.4f}", "Train Time (s)": "{:.4f}"
-        }), use_container_width=True, hide_index=True)
+        }), width="stretch", hide_index=True)
         st.success(f"🏆 Most Eco-Efficient Model: **{best_eco}**")
     else:
         st.warning("⚠️ No trained models found. Train models in the **🤖 ML Classification Lab** first to see auto carbon comparison.")
@@ -1714,7 +1723,7 @@ elif page == PAGES[5]:
             user_answers.append(ans)
             st.markdown("")
 
-        submitted = st.form_submit_button("📝 Submit Quiz", type="primary", use_container_width=True)
+        submitted = st.form_submit_button("📝 Submit Quiz", type="primary", width="stretch")
 
     if submitted:
         for i, q in enumerate(questions):
