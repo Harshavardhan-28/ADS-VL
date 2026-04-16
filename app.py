@@ -169,7 +169,7 @@ def render_header(title: str, subtitle: str = ""):
 
 def render_footer():
     """Render the standard footer."""
-    st.markdown('<div class="footer">Data Visualization Virtual Lab | Applied Data Science | 2026</div>', unsafe_allow_html=True)
+    st.markdown('<div class="footer">Aanchal Gupta D12C - 17 and Harshavardha Khamkar D12C - 24 | Data Visualization Virtual Lab | Applied Data Science | 2026</div>', unsafe_allow_html=True)
 
 
 def render_step_indicator(steps: list, current: int):
@@ -237,7 +237,7 @@ if ds_info:
 ##############################################################################
 if page == PAGES[0]:
     render_header("Welcome to the Data Visualization Virtual Lab 📊",
-                  "Applied Data Science — Hands-on Experimentation & Learning")
+                  "Applied Data Science — Hands-on Experimentation & Learning (Made by - Aanchal D12C - 17 and Harshavardha D12C - 24)")
 
     col1, col2 = st.columns([2, 1])
     with col1:
